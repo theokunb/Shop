@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shop.Mock;
+using Shop.Repository;
 using Shop.Services;
 using Shop.View;
 using Shop.ViewModel;
+using System.IO;
 using System.Windows;
 
 namespace Shop
@@ -36,6 +39,17 @@ namespace Shop
             services.AddScoped<ShopViewModel>();
             services.AddScoped<BasketViewModel>();
             services.AddScoped<INavigationService, NavigationService>();
+            services.AddScoped<IMockService, MockService>();
+            services.AddScoped<IItemModelRepository, ItemModelRepository>(provider =>
+            {
+                var repository =  new ItemModelRepository(Path.Combine("mydb.db"));
+                return repository;
+            });
+            services.AddScoped<IBasketModelRepository, BasketModelRepository>(provider =>
+            {
+                var repository = new BasketModelRepository(Path.Combine("mydb.db"));
+                return repository;
+            });
 
             services.AddScoped<Func<Type, BaseViewModel>>(provider => viewmodelType => (BaseViewModel)provider.GetRequiredService(viewmodelType));
 

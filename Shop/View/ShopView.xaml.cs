@@ -24,5 +24,10 @@ namespace Shop.View
         {
             InitializeComponent();
         }
+
+        private void Item_Buy(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
