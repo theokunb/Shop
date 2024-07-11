@@ -13,7 +13,7 @@ namespace Shop.Services
             _itemRepository = itemRepository;
         }
 
-        public async Task<int> CalculateItemsCountAsync()
+        public async Task<int> CalculateItemsCountAsync(CancellationToken cancellationToken = default)
         {
             var sum = 0;
             var items = await _basketRepository.GetAllAsync();
@@ -27,7 +27,7 @@ namespace Shop.Services
             return sum;
         }
 
-        public async Task<double> CalculateTotalPriceAsync()
+        public async Task<double> CalculateTotalPriceAsync(CancellationToken cancellationToken = default)
         {
             var itemsInBasket = await _basketRepository.GetAllAsync();
             var sum = 0.0;

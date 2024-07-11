@@ -41,6 +41,7 @@ namespace Shop
             services.AddScoped<INavigationService, NavigationService>();
             services.AddScoped<IItemModelRepository, MockService>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<BasketDtoModelFactory>();
             /*services.AddScoped<IItemModelRepository, ItemModelRepository>(provider =>
             {
                 var repository =  new ItemModelRepository(Path.Combine("mydb.db"));

@@ -60,5 +60,8 @@ namespace Shop.Services
 
         public async Task<IEnumerable<BasketModel>> GetAllAsync(CancellationToken cancellationToken = default) =>
             await _connection.Table<BasketModel>().ToListAsync();
+
+        public Task<BasketModel> GetByItemIdAsync(int id, CancellationToken cancellationToken = default) =>
+            _connection.Table<BasketModel>().Where(element => element.ItemId == id).FirstOrDefaultAsync();
     }
 }

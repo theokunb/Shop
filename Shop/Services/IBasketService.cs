@@ -2,7 +2,7 @@
 {
     public interface IBasketService
     {
-        Task<int> CalculateItemsCountAsync();
-        Task<double> CalculateTotalPriceAsync();
+        Task<int> CalculateItemsCountAsync(CancellationToken cancellationToken = default);
+        Task<double> CalculateTotalPriceAsync(CancellationToken cancellationToken = default);
     }
 }

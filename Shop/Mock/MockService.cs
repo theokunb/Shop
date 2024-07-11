@@ -6,7 +6,7 @@ namespace Shop.Mock
 {
     public class MockService : IItemModelRepository
     {
-        public async Task<ItemModel> GetItemAsync(int itemId)
+        public async Task<ItemModel> GetItemAsync(int itemId, CancellationToken cancellationToken = default)
         {
             var items = await GetItemsAsync();
 

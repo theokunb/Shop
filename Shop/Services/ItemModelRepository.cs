@@ -14,7 +14,7 @@ namespace Shop.Services
             _connection.CreateTableAsync<ItemModel>().Wait();
         }
 
-        public async Task<ItemModel> GetItemAsync(int itemId)
+        public async Task<ItemModel> GetItemAsync(int itemId, CancellationToken cancellationToken = default)
         {
             return await _connection.Table<ItemModel>().Where(element => element.Id == itemId).FirstOrDefaultAsync();
         }

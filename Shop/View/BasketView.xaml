@@ -12,10 +12,11 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
-                    Orientation="Horizontal">
-            <TextBlock Text="{Binding Header}"
-                       Foreground="White"/>
-        </StackPanel>
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Header}"
+                   Foreground="White"/>
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding BasketModels}">
+        </ListView>
     </Grid>
 </UserControl>
