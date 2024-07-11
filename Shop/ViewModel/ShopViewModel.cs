@@ -8,31 +8,22 @@ using System.Windows.Input;
 
 namespace Shop.ViewModel
 {
-    public class ShopViewModel : BaseViewModel
+    public class ShopViewModel : NavViewModel
     {
-        private readonly IMockService _mockService;
+        private readonly IItemModelRepository _itemRepository;
         private readonly IBasketModelRepository _basketModelRepository;
 
-        public ShopViewModel(IMockService mockService, IBasketModelRepository basketModelRepository)
+        public ShopViewModel(IItemModelRepository itemRepository, IBasketModelRepository basketModelRepository)
         {
-            _mockService = mockService;
+            _itemRepository = itemRepository;
             _basketModelRepository = basketModelRepository;
 
             CommandBuy = new RelayCommand(param => OnBuy(param));
             Items = new ObservableCollection<ItemModel>();
-
-            var items = _mockService.GetItems();
-
-            foreach (var item in items)
-            {
-                Items.Add(item);
-            }
         }
 
         public ObservableCollection<ItemModel> Items { get; set; }
-
         public ICommand CommandBuy { get; }
-
 
         private void OnBuy(object param)
         {
@@ -42,6 +33,17 @@ namespace Shop.ViewModel
                 return;
 
             _basketModelRepository.CreateAsync(item.Id);
+        }
+
+        public async override void OnEnable()
+        {
+            Items.Clear();
+            var items = await _itemRepository.GetItemsAsync();
+
+            foreach (var item in items)
+            {
+                Items.Add(item);
+            }
         }
     }
 }

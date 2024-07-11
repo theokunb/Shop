@@ -1,33 +1,49 @@
-﻿using Shop.Core;
+﻿using Shop.Entities;
+using Shop.Repository;
 using Shop.Services;
-using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace Shop.ViewModel
 {
-    public class BasketViewModel : BaseViewModel
+    public class BasketViewModel : NavViewModel
     {
-        private INavigationService _navigationService;
+        private readonly IBasketModelRepository _basketRepository;
+        private readonly IBasketService _basketService;
+        private int _count = 0;
+        private double _totalPrice = 0;
 
-        public BasketViewModel(INavigationService navigationService)
+        public BasketViewModel(IBasketModelRepository basketRepository, IBasketService basketService)
         {
-            _navigationService = navigationService;
-            CommandHomeView = new RelayCommand(param => OnHomeView());
+            _basketRepository = basketRepository;
+            _basketService = basketService;
+
+            BasketModels = new ObservableCollection<BasketModel>();
         }
 
-        public INavigationService NavigationService
+        public ObservableCollection<BasketModel> BasketModels { get; }
+
+        public string Header => $"В корзине {_count} товаров стоимостью {_totalPrice}";
+
+        public async override void OnEnable()
         {
-            get => _navigationService;
-            set
+            BasketModels.Clear();
+
+            var items = await _basketRepository.GetAllAsync();
+
+            foreach(var item in items)
             {
-                _navigationService = value;
-                OnPropertyChanged();
+                BasketModels.Add(item);
             }
-        }
-        public ICommand CommandHomeView { get; }
 
-        public void OnHomeView()
+            await FillHeader();
+        }
+
+        private async Task FillHeader()
         {
-            NavigationService.NavigateTo<ShopViewModel>();
+            _count = await _basketService.CalculateItemsCountAsync();
+            _totalPrice = await _basketService.CalculateTotalPriceAsync();
+
+            OnPropertyChanged(nameof(Header));
         }
     }
 }

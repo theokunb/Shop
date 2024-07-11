@@ -5,22 +5,22 @@ namespace Shop.Services
 {
     public interface INavigationService
     {
-        BaseViewModel CurrentView { get; }
+        NavViewModel CurrentView { get; }
 
-        void NavigateTo<TViewModel>() where TViewModel : BaseViewModel;
+        void NavigateTo<TViewModel>() where TViewModel : NavViewModel;
     }
 
     public class NavigationService : ObservableObject, INavigationService
     {
-        private readonly Func<Type, BaseViewModel> _viewmodelFactory;
-        private BaseViewModel _viewModel;
+        private readonly Func<Type, NavViewModel> _viewmodelFactory;
+        private NavViewModel _viewModel;
 
-        public NavigationService(Func<Type, BaseViewModel> viewmodelFactory)
+        public NavigationService(Func<Type, NavViewModel> viewmodelFactory)
         {
             _viewmodelFactory = viewmodelFactory;
         }
 
-        public BaseViewModel CurrentView
+        public NavViewModel CurrentView
         {
             get => _viewModel;
             private set
@@ -30,10 +30,11 @@ namespace Shop.Services
             }
         }
 
-        public void NavigateTo<TViewModel>() where TViewModel : BaseViewModel
+        public void NavigateTo<TViewModel>() where TViewModel : NavViewModel
         {
             var viewmodel = _viewmodelFactory?.Invoke(typeof(TViewModel));
             CurrentView = viewmodel;
+            CurrentView?.OnEnable();
         }
     }
 }

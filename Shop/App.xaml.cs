@@ -39,19 +39,20 @@ namespace Shop
             services.AddScoped<ShopViewModel>();
             services.AddScoped<BasketViewModel>();
             services.AddScoped<INavigationService, NavigationService>();
-            services.AddScoped<IMockService, MockService>();
-            services.AddScoped<IItemModelRepository, ItemModelRepository>(provider =>
+            services.AddScoped<IItemModelRepository, MockService>();
+            services.AddScoped<IBasketService, BasketService>();
+            /*services.AddScoped<IItemModelRepository, ItemModelRepository>(provider =>
             {
                 var repository =  new ItemModelRepository(Path.Combine("mydb.db"));
                 return repository;
-            });
+            });*/
             services.AddScoped<IBasketModelRepository, BasketModelRepository>(provider =>
             {
                 var repository = new BasketModelRepository(Path.Combine("mydb.db"));
                 return repository;
             });
 
-            services.AddScoped<Func<Type, BaseViewModel>>(provider => viewmodelType => (BaseViewModel)provider.GetRequiredService(viewmodelType));
+            services.AddScoped<Func<Type, NavViewModel>>(provider => viewmodelType => (NavViewModel)provider.GetRequiredService(viewmodelType));
 
             _serviceProvider = services.BuildServiceProvider();
         }

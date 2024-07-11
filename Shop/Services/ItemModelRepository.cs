@@ -14,6 +14,11 @@ namespace Shop.Services
             _connection.CreateTableAsync<ItemModel>().Wait();
         }
 
+        public async Task<ItemModel> GetItemAsync(int itemId)
+        {
+            return await _connection.Table<ItemModel>().Where(element => element.Id == itemId).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<ItemModel>> GetItemsAsync(CancellationToken cancellationToken = default) => 
             await _connection.Table<ItemModel>().ToListAsync();
     }
