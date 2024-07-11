@@ -10,15 +10,15 @@ namespace Shop.ViewModel
 {
     public class ShopViewModel : BaseViewModel
     {
-        private INavigationService _navigationService;
         private readonly IMockService _mockService;
+        private readonly IBasketModelRepository _basketModelRepository;
 
-        public ShopViewModel(INavigationService navigationService, IMockService mockService)
+        public ShopViewModel(IMockService mockService, IBasketModelRepository basketModelRepository)
         {
-            _navigationService = navigationService;
             _mockService = mockService;
+            _basketModelRepository = basketModelRepository;
 
-            CommandBasketView = new RelayCommand(param => OnBasketView());
+            CommandBuy = new RelayCommand(param => OnBuy(param));
             Items = new ObservableCollection<ItemModel>();
 
             var items = _mockService.GetItems();
@@ -31,21 +31,17 @@ namespace Shop.ViewModel
 
         public ObservableCollection<ItemModel> Items { get; set; }
 
-        public INavigationService NavigationService
-        {
-            get => _navigationService;
-            set
-            {
-                _navigationService = value;
-                OnPropertyChanged();
-            }
-        }
+        public ICommand CommandBuy { get; }
 
-        public ICommand CommandBasketView { get; }
 
-        public void OnBasketView()
+        private void OnBuy(object param)
         {
-            NavigationService.NavigateTo<BasketViewModel>();
+            var item = param as ItemModel;
+
+            if (item == null)
+                return;
+
+            _basketModelRepository.CreateAsync(item.Id);
         }
     }
 }
