@@ -28,7 +28,7 @@ namespace Shop.ViewModel
         }
 
         public ObservableCollection<BasketDtoModel> BasketModels { get; }
-        public string Header => $"В корзине {_count} товаров стоимостью {_totalPrice}";
+        public string Header => $"В корзине {_count} товаров стоимостью {_totalPrice.ToString("F")}";
         public ICommand CommandRemove { get; }
 
 

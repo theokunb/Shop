@@ -11,7 +11,6 @@ namespace Shop.ViewModel
 {
     public class ShopViewModel : NavViewModel
     {
-        private readonly IItemModelRepository _itemRepository;
         private readonly IBasketModelRepository _basketModelRepository;
         private readonly MeasureService _measureService;
         private double _itemWidth;
@@ -19,11 +18,9 @@ namespace Shop.ViewModel
         private Thickness _itemMargin;
         private int _itemsCount;
 
-        public ShopViewModel(IItemModelRepository itemRepository,
-            IBasketModelRepository basketModelRepository,
+        public ShopViewModel(IBasketModelRepository basketModelRepository,
             MeasureService measureService)
         {
-            _itemRepository = itemRepository;
             _basketModelRepository = basketModelRepository;
 
             CommandBuy = new RelayCommand(param => OnBuy(param));
@@ -116,10 +113,6 @@ namespace Shop.ViewModel
         }
 
         private async void OnItemsCountChanged() =>
-            await _measureService.FillItems(Items, ItemsCount);
-
-        public override void OnEnable()
-        {
-        }
+            await _measureService.FillItemsAsync(Items, ItemsCount);
     }
 }

@@ -37,7 +37,7 @@ namespace Shop.Services
             }
         }
 
-        public async Task FillItems(ObservableCollection<ItemModel> items, int count)
+        public async Task FillItemsAsync(ObservableCollection<ItemModel> items, int count, CancellationToken cancellationToken = default)
         {
             var extraCount = items.Count() - count;
 
@@ -53,7 +53,7 @@ namespace Shop.Services
             else if(extraCount < 0)
             {
                 //надо прибавить
-                var allItems = await _itemsRepository.GetItemsAsync();
+                var allItems = await _itemsRepository.GetItemsAsync(cancellationToken);
                 var needItems = allItems.Skip(items.Count()).Take(Math.Abs(extraCount));
 
                 foreach(var item in needItems)

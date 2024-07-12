@@ -16,7 +16,7 @@ namespace Shop.Services
         public async Task<int> CalculateItemsCountAsync(CancellationToken cancellationToken = default)
         {
             var sum = 0;
-            var items = await _basketRepository.GetAllAsync();
+            var items = await _basketRepository.GetAllAsync(cancellationToken);
             var counts = items.Select(element => element.Count);
 
             foreach (var item in counts)
@@ -29,12 +29,12 @@ namespace Shop.Services
 
         public async Task<double> CalculateTotalPriceAsync(CancellationToken cancellationToken = default)
         {
-            var itemsInBasket = await _basketRepository.GetAllAsync();
+            var itemsInBasket = await _basketRepository.GetAllAsync(cancellationToken);
             var sum = 0.0;
 
             foreach(var element in itemsInBasket)
             {
-                var item = await _itemRepository.GetItemAsync(element.ItemId);
+                var item = await _itemRepository.GetItemAsync(element.ItemId, cancellationToken);
 
                 if (item == null)
                     continue;

@@ -8,6 +8,6 @@ namespace Shop.ViewModel
 
     public abstract class NavViewModel : BaseViewModel
     {
-        public abstract void OnEnable();
+        public virtual void OnEnable() { }
     }
 }

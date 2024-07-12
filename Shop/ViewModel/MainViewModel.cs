@@ -8,19 +8,6 @@ namespace Shop.ViewModel
     {
         private INavigationService _navigationService;
 
-        public INavigationService NavigationService
-        {
-            get => _navigationService;
-            set
-            {
-                _navigationService = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand NavigateHomeCommand { get; set; }
-        public ICommand NavigateBasketCommand { get; set; }
-
         public MainViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -30,6 +17,18 @@ namespace Shop.ViewModel
 
             NavigationService.NavigateTo<ShopViewModel>();
         }
+
+        public INavigationService NavigationService
+        {
+            get => _navigationService;
+            set
+            {
+                _navigationService = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand NavigateHomeCommand { get; set; }
+        public ICommand NavigateBasketCommand { get; set; }
 
         private void OnHome()
         {
