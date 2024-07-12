@@ -1,6 +1,4 @@
-﻿using Shop.ViewModel;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace Shop.View
 {
@@ -12,12 +10,6 @@ namespace Shop.View
         public ShopView()
         {
             InitializeComponent();
-        }
-
-        private void Item_Buy(object sender, RoutedEventArgs e)
-        {
-            var item = sender as Item;
-            (DataContext as ShopViewModel).CommandBuy.Execute(item?.DataContext);
         }
     }
 }

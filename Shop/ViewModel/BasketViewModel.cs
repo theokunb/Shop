@@ -1,7 +1,9 @@
-﻿using Shop.Entities;
+﻿using Shop.Core;
+using Shop.Entities;
 using Shop.Repository;
 using Shop.Services;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Shop.ViewModel
 {
@@ -22,10 +24,12 @@ namespace Shop.ViewModel
             _basketDtoModelFactory = basketDtoModelFactory;
 
             BasketModels = new ObservableCollection<BasketDtoModel>();
+            CommandRemove = new RelayCommand(param => OnRemove(param));
         }
 
         public ObservableCollection<BasketDtoModel> BasketModels { get; }
         public string Header => $"В корзине {_count} товаров стоимостью {_totalPrice}";
+        public ICommand CommandRemove { get; }
 
 
         public async override void OnEnable()
@@ -49,6 +53,18 @@ namespace Shop.ViewModel
             _totalPrice = await _basketService.CalculateTotalPriceAsync(cancellationToken);
 
             OnPropertyChanged(nameof(Header));
+        }
+        private async void OnRemove(object param)
+        {
+            var dto = param as BasketDtoModel;
+
+            if (dto == null)
+                return;
+            
+            await _basketRepository.DeleteAsync(dto.BasketId);
+            BasketModels.Delete(dto);
+
+            await FillHeaderAsync();
         }
     }
 }

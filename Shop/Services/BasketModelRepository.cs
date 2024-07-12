@@ -37,25 +37,28 @@ namespace Shop.Services
             return basket;
         }
 
-        public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<BasketModel> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
-            var basket = await _connection.Table<BasketModel>().Where(element => element.ItemId == id).FirstOrDefaultAsync();
+            var basket = await _connection.Table<BasketModel>().Where(element => element.Id == id).FirstOrDefaultAsync();
 
             if (basket == null)
             {
-                return;
+                return null;
             }
 
             basket.Count -= 1;
 
-            if(basket.Count == 0)
+            if (basket.Count == 0)
             {
                 await _connection.DeleteAsync(basket);
+                return null;
             }
             else
             {
                 await _connection.UpdateAsync(basket);
             }
+
+            return basket;
         }
 
         public async Task<IEnumerable<BasketModel>> GetAllAsync(CancellationToken cancellationToken = default) =>

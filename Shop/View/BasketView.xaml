@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shop.View"
+             xmlns:g="clr-namespace:Shop"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              xmlns:vm="clr-namespace:Shop.ViewModel"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="control">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -16,7 +19,37 @@
                    Text="{Binding Header}"
                    Foreground="White"/>
         <ListView Grid.Row="1"
-                  ItemsSource="{Binding BasketModels}">
+                  ItemsSource="{Binding BasketModels}"
+                  HorizontalAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Vertical">
+                            <Image Source="{Binding Image}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Price}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding Count}"/>
+                        <Button Grid.Column="1"
+                                Content="удалить из корзины"
+                                Width="150"
+                                Height="75">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding DataContext.CommandRemove, ElementName=control}"
+                                                           CommandParameter="{Binding .}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>

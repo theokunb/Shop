@@ -1,8 +1,6 @@
 ﻿using Shop.Core;
 using Shop.Entities;
-using Shop.Mock;
 using Shop.Repository;
-using Shop.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

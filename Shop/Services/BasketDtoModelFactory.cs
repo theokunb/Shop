@@ -21,6 +21,7 @@ namespace Shop.Services
 
             return new BasketDtoModel
             {
+                BasketId = basketModel.Id,
                 Name = itemModel.Name,
                 Price = itemModel.Price,
                 Image = itemModel.Image,

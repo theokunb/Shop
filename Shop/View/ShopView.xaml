@@ -16,8 +16,14 @@
                 <DataTemplate DataType="{x:Type entity:ItemModel}">
                     <local:Item Image="{Binding Image}"
                                 Title="{Binding Name}"
-                                Price="{Binding Price}"
-                                Buy="Item_Buy"/>
+                                Price="{Binding Price}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Buy">
+                                <i:InvokeCommandAction Command="{Binding DataContext.CommandBuy, ElementName=parent}"
+                                                       CommandParameter="{Binding .}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </local:Item>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
