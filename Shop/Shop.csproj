@@ -10,11 +10,70 @@
 
   <ItemGroup>
     <None Remove="product1.png" />
+    <None Remove="product10.PNG" />
+    <None Remove="product11.PNG" />
+    <None Remove="product12.PNG" />
+    <None Remove="product13.PNG" />
+    <None Remove="product14.PNG" />
+    <None Remove="product15.PNG" />
+    <None Remove="product16.PNG" />
+    <None Remove="product17.PNG" />
+    <None Remove="product18.PNG" />
+    <None Remove="product19.PNG" />
     <None Remove="product2.png" />
+    <None Remove="product20.PNG" />
     <None Remove="product3.png" />
     <None Remove="product4.png" />
     <None Remove="product5.png" />
     <None Remove="product6.png" />
+    <None Remove="product7.PNG" />
+    <None Remove="product8.PNG" />
+    <None Remove="product9.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="product10.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product11.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product12.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product13.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product14.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product15.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product16.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product17.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product18.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product19.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product20.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product7.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product8.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="product9.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
