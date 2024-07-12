@@ -10,13 +10,24 @@
              xmlns:vm="clr-namespace:Shop.ViewModel"
              d:DesignHeight="450" d:DesignWidth="800"
              Name="parent">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding CommandSizeChanged}"
+                                   CommandParameter="{Binding ., ElementName=parent}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <ListView ItemsSource="{Binding Items}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type entity:ItemModel}">
                     <local:Item Image="{Binding Image}"
                                 Title="{Binding Name}"
-                                Price="{Binding Price}">
+                                TitleFontSize="16"
+                                Price="{Binding Price}"
+                                PriceFontSize="12"
+                                Height="{Binding ElementName=parent, Path=DataContext.ItemHeight}"
+                                Width="{Binding ElementName=parent, Path=DataContext.ItemWidth}"
+                                Margin="{Binding ElementName=parent, Path=DataContext.ItemMargin}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Buy">
                                 <i:InvokeCommandAction Command="{Binding DataContext.CommandBuy, ElementName=parent}"

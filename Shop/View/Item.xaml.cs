@@ -31,12 +31,29 @@ namespace Shop.View
             set => SetValue(TitleProperty, value);
         }
 
+        public static readonly DependencyProperty TitleFontSizeProperty =
+            DependencyProperty.Register(nameof(TitleFontSize), typeof(int), typeof(Item), new PropertyMetadata(null));
+        public int TitleFontSize
+        {
+            get => (int)GetValue(TitleFontSizeProperty);
+            set => SetValue(TitleFontSizeProperty, value);
+        }
+
+
         public static readonly DependencyProperty PriceProperty =
             DependencyProperty.Register(nameof(Price), typeof(double), typeof(Item), new PropertyMetadata(null));
         public double Price
         {
             get => (double)GetValue(PriceProperty);
             set => SetValue(PriceProperty, value);
+        }
+
+        public static readonly DependencyProperty PriceFontSizeProperty =
+            DependencyProperty.Register(nameof(PriceFontSize), typeof(int), typeof(Item), new PropertyMetadata(null));
+        public int PriceFontSize
+        {
+            get => (int)GetValue(PriceFontSizeProperty);
+            set => SetValue(PriceFontSizeProperty, value);
         }
 
         public static readonly RoutedEvent BuyEvent =

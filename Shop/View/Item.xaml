@@ -18,14 +18,14 @@
                Source="{Binding ElementName=item, Path=Image}"/>
         <TextBlock Grid.Row="1"
                    Text="{Binding ElementName=item, Path=Title}"
+                   FontSize="{Binding ElementName=item, Path=TitleFontSize}"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="20"/>
+                   HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="2"
                    Text="{Binding ElementName=item, Path=Price}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   FontSize="20"/>
+                   FontSize="{Binding ElementName=item, Path=PriceFontSize}"/>
         <Button Grid.Row = "3"
                 Content="В корзину"
                 Width="70"
