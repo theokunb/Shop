@@ -2,6 +2,7 @@
 using Shop.Mock;
 using Shop.Repository;
 using Shop.Services;
+using Shop.Services.Sort;
 using Shop.View;
 using Shop.ViewModel;
 using System.IO;
@@ -41,6 +42,7 @@ namespace Shop
             services.AddScoped<INavigationService, NavigationService>();
             services.AddScoped<IItemModelRepository, MockService>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<ISortVisitor, SortVisitor>();
             services.AddScoped<BasketDtoModelFactory>();
             services.AddScoped<MeasureService>();
             /*services.AddScoped<IItemModelRepository, ItemModelRepository>(provider =>
