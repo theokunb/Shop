@@ -15,6 +15,10 @@
             <i:InvokeCommandAction Command="{Binding CommandSizeChanged}"
                                    CommandParameter="{Binding ., ElementName=parent}"/>
         </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CommandLoaded}"
+                                   CommandParameter="{Binding ., ElementName=parent}"/>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <ListView ItemsSource="{Binding Items}">

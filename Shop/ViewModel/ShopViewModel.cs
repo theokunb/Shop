@@ -28,6 +28,7 @@ namespace Shop.ViewModel
 
             CommandBuy = new RelayCommand(param => OnBuy(param));
             CommandSizeChanged = new RelayCommand(param => OnSizeChanged(param));
+            CommandLoaded = new RelayCommand(param => OnLoaded(param));
             Items = new ObservableCollection<ItemModel>();
             ItemWidth = 100;
             ItemHeight = 150;
@@ -85,6 +86,7 @@ namespace Shop.ViewModel
         }
         public ICommand CommandBuy { get; }
         public ICommand CommandSizeChanged { get; }
+        public ICommand CommandLoaded { get; }
         public ObservableCollection<ItemModel> Items { get; set; }
 
 
@@ -108,20 +110,16 @@ namespace Shop.ViewModel
             ItemsCount = _measureService.Measure(view.ActualHeight, view.ActualWidth, ItemHeight, ItemWidth, DirectionMode.Vertical, ItemMargin);
         }
 
-        public async override void OnEnable()
+        private void OnLoaded(object param)
         {
-            Items.Clear();
-            var items = await _itemRepository.GetItemsAsync();
-
-            foreach (var item in items)
-            {
-                Items.Add(item);
-            }
+            OnSizeChanged(param);
         }
 
-        private async void OnItemsCountChanged()
-        {
+        private async void OnItemsCountChanged() =>
             await _measureService.FillItems(Items, ItemsCount);
+
+        public override void OnEnable()
+        {
         }
     }
 }
