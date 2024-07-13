@@ -9,26 +9,38 @@ namespace Shop.Services.SortService
 
         public void Visit(SortByTitle sort)
         {
-            var sorted = Collection.OrderBy(element => element.Name).ToList();
+            for(int i = 0; i < Collection.Count; i++)
+            {
+                int max = 0;
 
-            Move(sorted);
+                for (int j = 0; j < Collection.Count - i; j++)
+                {
+                    if (Collection[max].Name.CompareTo(Collection[j].Name) < 0)
+                    {
+                        max = j;
+                    }
+                }
+
+                Collection.Move(max, Collection.Count - 1 - i);
+            }
         }
 
         public void Visit(SortByPrice sort)
         {
-            var sorted = Collection.OrderBy(element => element.Price).ToList();
-
-            Move(sorted);
-        }
-
-        private void Move(IList<BasketDtoModel> sorted)
-        {
-            for (int i = 0; i < sorted.Count(); i++)
+            for (int i = 0; i < Collection.Count; i++)
             {
-                var current = Collection[i];
-                var sortedId = sorted.IndexOf(current);
-                Collection.Move(i, sortedId);
+                int max = 0;
+                for (int j = 0; j < Collection.Count - i; j++)
+                {
+                    if (Collection[max].Price < Collection[j].Price)
+                    {
+                        max = j;
+                    }
+                }
+
+                Collection.Move(max, Collection.Count - 1 - i);
             }
+
         }
     }
 }
