@@ -6,27 +6,121 @@
         xmlns:local="clr-namespace:Shop"
         xmlns:vm="clr-namespace:Shop.ViewModel"
         xmlns:view="clr-namespace:Shop.View"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Background="#121212"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="640" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        Background="Transparent">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
-            <Button Content="Магазин"
-                    Height="25"
-                    Command="{Binding NavigateHomeCommand}"/>
-            <Button Content="Корзина"
-                    Height="25"
-                    Command="{Binding NavigateBasketCommand}"/>
-        </StackPanel>
+        <Border Grid.Column="0"
+                CornerRadius="10 0 0 10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.5, 0"
+                                     EndPoint="0.5, 1">
+                    <GradientStop Color="#2B2BBF" Offset="0"/>
+                    <GradientStop Color="#2B2B57" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
-        <ContentControl Grid.Column="1"
-                        Content="{Binding NavigationService.CurrentView}">
+            <StackPanel HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal"
+                            Margin="15 10">
+                    <Border CornerRadius="10"
+                            Width="35"
+                            Height="35">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0.5, 0"
+                                                 EndPoint="0.5, 1">
+                                <GradientStop Color="#8286EF" Offset="0"/>
+                                <GradientStop Color="#AAA1FA" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <fa:IconImage Icon="BasketShopping"
+                                      Foreground="White"
+                                      Margin="5"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Магаз"
+                                   FontSize="15"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   Margin="5"/>
+                        <TextBlock Text="v 1.0"
+                                   FontSize="8"
+                                   HorizontalAlignment="Left"
+                                   Foreground="White"
+                                   Margin="10 0 0 0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator Margin="20 10"
+                           Background="#46558A"/>
+
+                <Button Style="{StaticResource menuButton}"
+                        Command="{Binding NavigateHomeCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="Home"
+                                      Style="{StaticResource menuIconButton}"/>
+                        <TextBlock Text="Главная"
+                                   Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource menuButton}"
+                        Command="{Binding NavigateBasketCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="ShoppingBasket"
+                                      Style="{StaticResource menuIconButton}"/>
+                        <TextBlock Text="Корзина"
+                                   Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
             
-        </ContentControl>
+        <Border Grid.Column="1"
+                CornerRadius="0 10 10 0"
+                MouseDown="Border_MouseDown"
+                Margin="-1 0 0 0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0, 0"
+                                     EndPoint="1, 1">
+                    <GradientStop Color="#2B2BBF" Offset="0"/>
+                    <GradientStop Color="#2B2B57" Offset="1.2"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <fa:IconImage Icon="PowerOff"
+                          Grid.Row="0"
+                          Width="30"
+                          Height="30"
+                          HorizontalAlignment="Right"
+                          Foreground="White">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding CommandExit}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </fa:IconImage>
+            <ContentControl Grid.Row="1"
+                            Content="{Binding NavigationService.CurrentView}">
+            </ContentControl>
+        </Grid>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using Shop.Core;
 using Shop.Services;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Shop.ViewModel
@@ -14,6 +15,7 @@ namespace Shop.ViewModel
 
             NavigateHomeCommand = new RelayCommand(param => OnHome());
             NavigateBasketCommand = new RelayCommand(param => OnBasket());
+            CommandExit = new RelayCommand(param => OnExit(param));
 
             NavigationService.NavigateTo<ShopViewModel>();
         }
@@ -29,6 +31,7 @@ namespace Shop.ViewModel
         }
         public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateBasketCommand { get; set; }
+        public ICommand CommandExit { get; }
 
         private void OnHome()
         {
@@ -38,6 +41,11 @@ namespace Shop.ViewModel
         private void OnBasket()
         {
             NavigationService.NavigateTo<BasketViewModel>();
+        }
+
+        private void OnExit(object param)
+        {
+            Environment.Exit(0);
         }
     }
 }

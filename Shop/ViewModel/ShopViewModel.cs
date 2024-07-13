@@ -27,7 +27,7 @@ namespace Shop.ViewModel
             CommandSizeChanged = new RelayCommand(param => OnSizeChanged(param));
             CommandLoaded = new RelayCommand(param => OnLoaded(param));
             Items = new ObservableCollection<ItemModel>();
-            ItemWidth = 80;
+            ItemWidth = 400;
             ItemHeight = 120;
             ItemMargin = new Thickness(0);
             _measureService = measureService;

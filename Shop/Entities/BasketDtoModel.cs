@@ -7,5 +7,6 @@
         public double Price { get; set; }
         public string Image { get; set; }
         public int Count { get; set; }
+        public string DisplayCount => $"{Count} шт.";
     }
 }
