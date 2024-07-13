@@ -2,7 +2,7 @@
 using Shop.Entities;
 using Shop.Repository;
 using Shop.Services;
-using Shop.Services.Sort;
+using Shop.Services.SortService;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -14,13 +14,16 @@ namespace Shop.ViewModel
         private readonly IBasketService _basketService;
         private readonly ISortVisitor _sortVisitor;
         private readonly BasketDtoModelFactory _basketDtoModelFactory;
+        private readonly SortService _sortService;
         private int _count = 0;
         private double _totalPrice = 0;
+        private int _currentSortIndex;
 
         public BasketViewModel(IBasketModelRepository basketRepository,
             IBasketService basketService,
             BasketDtoModelFactory basketDtoModelFactory,
-            ISortVisitor sortVisitor)
+            ISortVisitor sortVisitor,
+            SortService sortService)
         {
             _basketRepository = basketRepository;
             _basketService = basketService;
@@ -29,17 +32,27 @@ namespace Shop.ViewModel
             BasketModels = new ObservableCollection<BasketDtoModel>();
             Sorts = new ObservableCollection<Sort>()
             {
-                new SortByTitle("по названию"),
-                new SortByPrice("по цене")
+                new SortByTitle(0, "по названию"),
+                new SortByPrice(1, "по цене")
             };
 
             CommandRemove = new RelayCommand(param => OnRemove(param));
             CommandSort = new RelayCommand(param => OnSort(param));
             _sortVisitor = sortVisitor;
+            _sortService = sortService;
         }
 
         public ObservableCollection<BasketDtoModel> BasketModels { get; }
         public ObservableCollection<Sort> Sorts { get; }
+        public int CurrentSortIndex
+        {
+            get => _currentSortIndex;
+            set
+            {
+                _currentSortIndex = value;
+                OnPropertyChanged(nameof(CurrentSortIndex));
+            }
+        }
         public string Header => $"В корзине {_count} товаров стоимостью {_totalPrice.ToString("F")}";
         public ICommand CommandRemove { get; }
         public ICommand CommandSort { get; }
@@ -58,6 +71,8 @@ namespace Shop.ViewModel
             }
 
             await FillHeaderAsync();
+            var sort = await _sortService.GetStoredSortAsync(Sorts);
+            OnSort(sort);
         }
 
         private async Task FillHeaderAsync(CancellationToken cancellationToken = default)
@@ -81,7 +96,7 @@ namespace Shop.ViewModel
             await FillHeaderAsync();
         }
 
-        private void OnSort(object param)
+        private async void OnSort(object param)
         {
             var sort = param as Sort;
 
@@ -90,6 +105,8 @@ namespace Shop.ViewModel
 
             _sortVisitor.Collection = BasketModels;
             sort.Accept(_sortVisitor);
+            CurrentSortIndex = sort.Index;
+            await _sortService.StoreSortAsync(sort);
         }
     }
 }

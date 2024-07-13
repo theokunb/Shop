@@ -2,7 +2,7 @@
 using Shop.Mock;
 using Shop.Repository;
 using Shop.Services;
-using Shop.Services.Sort;
+using Shop.Services.SortService;
 using Shop.View;
 using Shop.ViewModel;
 using System.IO;
@@ -45,6 +45,7 @@ namespace Shop
             services.AddScoped<ISortVisitor, SortVisitor>();
             services.AddScoped<BasketDtoModelFactory>();
             services.AddScoped<MeasureService>();
+            services.AddScoped<SortService>();
             /*services.AddScoped<IItemModelRepository, ItemModelRepository>(provider =>
             {
                 var repository =  new ItemModelRepository(Path.Combine("mydb.db"));
@@ -55,6 +56,7 @@ namespace Shop
                 var repository = new BasketModelRepository(Path.Combine("mydb.db"));
                 return repository;
             });
+            services.AddScoped<ISortRepository, SortRepository>(provider => new SortRepository(Path.Combine("mydb.db")));
 
             services.AddScoped<Func<Type, NavViewModel>>(provider => viewmodelType => (NavViewModel)provider.GetRequiredService(viewmodelType));
 

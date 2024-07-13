@@ -1,12 +1,14 @@
-﻿namespace Shop.Services.Sort
+﻿namespace Shop.Services.SortService
 {
     public abstract class Sort
     {
-        protected Sort(string title)
+        protected Sort(int index,string title)
         {
+            Index = index;
             Title = title;
         }
 
+        public int Index { get; }
         public string Title { get; }
 
         public abstract void Accept(ISortVisitor visitor);
@@ -14,7 +16,7 @@
 
     public class SortByTitle : Sort
     {
-        public SortByTitle(string title) : base(title)
+        public SortByTitle(int index, string title) : base(index, title)
         {
         }
 
@@ -26,7 +28,7 @@
 
     public class SortByPrice : Sort
     {
-        public SortByPrice(string title) : base(title)
+        public SortByPrice(int index, string title) : base(index, title)
         {
         }
 

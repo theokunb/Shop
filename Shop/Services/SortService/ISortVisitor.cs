@@ -1,7 +1,7 @@
 ﻿using Shop.Entities;
 using System.Collections.ObjectModel;
 
-namespace Shop.Services.Sort
+namespace Shop.Services.SortService
 {
     public interface ISortVisitor
     {

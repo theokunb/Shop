@@ -27,6 +27,7 @@
                        Text="{Binding Header}"
                        Foreground="White"/>
             <ComboBox Grid.Column="1"
+                      SelectedIndex="{Binding CurrentSortIndex}"
                       ItemsSource="{Binding Sorts}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
